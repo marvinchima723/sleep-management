@@ -58,73 +58,136 @@ const makeShadow = () => ({ type: "outer", blur: 5, offset: 2, angle: 135, color
   let sl = pres.addSlide();
   sl.background = { color: C.light };
 
-  // top accent strip
-  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.08, fill: { color: C.accent } });
+  // full-height left stat panel
+  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 3.8, h: 5.625, fill: { color: C.navy } });
+  // accent top bar on left panel
+  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 3.8, h: 0.12, fill: { color: C.accent } });
 
-  // section label
-  sl.addText("01  市场痛点", { x: 0.6, y: 0.35, w: 4, h: 0.4, fontSize: 12, color: C.accent, fontFace: "Calibri", bold: true, charSpacing: 2 });
+  // slide number label
+  sl.addText("01", { x: 0.4, y: 0.4, w: 1, h: 0.4, fontSize: 11, color: C.accent, fontFace: "Calibri", bold: true, charSpacing: 3 });
+  sl.addText("市场痛点", { x: 0.4, y: 0.75, w: 3, h: 0.35, fontSize: 12, color: "8fa3bf", fontFace: "Calibri" });
 
-  // headline stat
-  sl.addText("3亿人", { x: 0.6, y: 0.8, w: 4, h: 1.1, fontSize: 80, color: C.primary, fontFace: "Georgia", bold: true });
-  sl.addText("中国人受睡眠问题困扰", { x: 0.6, y: 1.9, w: 4, h: 0.4, fontSize: 16, color: C.text, fontFace: "Calibri" });
+  // big stat — left panel
+  sl.addText("3", { x: 0.4, y: 1.3, w: 1.5, h: 1.6, fontSize: 110, color: C.white, fontFace: "Georgia", bold: true });
+  sl.addText("亿人", { x: 1.85, y: 2.35, w: 1.5, h: 0.6, fontSize: 28, color: C.accent, fontFace: "Calibri", bold: true });
+  sl.addText("中国人受睡眠问题困扰", { x: 0.4, y: 3.1, w: 3.1, h: 0.7, fontSize: 13, color: "8fa3bf", fontFace: "Calibri" });
 
-  // three pain cards
+  // divider line
+  sl.addShape(pres.shapes.LINE, { x: 0.4, y: 3.85, w: 2.2, h: 0, line: { color: "2a4a7a", width: 1 } });
+
+  // context stat on left panel
+  sl.addText("市场年规模", { x: 0.4, y: 4.05, w: 3, h: 0.3, fontSize: 11, color: "6b8ab5", fontFace: "Calibri" });
+  sl.addText("¥4700亿+", { x: 0.4, y: 4.35, w: 3, h: 0.5, fontSize: 24, color: C.accent, fontFace: "Georgia", bold: true });
+  sl.addText("持续高速增长，复合年增长率CAGR > 12%", { x: 0.4, y: 4.85, w: 3.1, h: 0.4, fontSize: 10, color: "6b8ab5", fontFace: "Calibri" });
+
+  // right: three vertical pain bars — international consultant style
   const pains = [
-    { icon: "😰", title: "现有助眠方式效果有限", desc: "药物依赖 · 副作用大 · 治标不治本" },
-    { icon: "🏥", title: "医院睡眠中心覆盖率低", desc: "资源稀缺 · 费用高昂 · 体验差" },
-    { icon: "🌍", title: "环境问题加剧健康风险", desc: "甲醛 · 辐射 · 空气质量差" },
+    { num: "01", title: "现有助眠方式效果有限", desc: "药物依赖、副作用大、治标不治本。现有助眠产品无法从根本上改善睡眠环境质量。", color: C.accent },
+    { num: "02", title: "医院睡眠中心覆盖率极低", desc: "全国睡眠中心数量不足千家，资源稀缺、费用高昂、用户体验差，绝大部分患者得不到专业帮助。", color: C.orange },
+    { num: "03", title: "室内环境污染持续损害健康", desc: "甲醛超标、PM2.5渗入、辐射无处不在——室内环境问题成为睡眠障碍的重要诱因，却长期被忽视。", color: C.primary },
   ];
+
   pains.forEach((p, i) => {
-    const x = 5.3;
-    const y = 0.75 + i * 1.55;
-    sl.addShape(pres.shapes.RECTANGLE, { x, y, w: 4.1, h: 1.35, fill: { color: C.white }, shadow: makeShadow() });
-    sl.addShape(pres.shapes.RECTANGLE, { x, y, w: 0.1, h: 1.35, fill: { color: i === 0 ? C.accent : i === 1 ? C.orange : C.primary } });
-    sl.addText(p.icon, { x: x + 0.25, y: y + 0.18, w: 0.6, h: 0.6, fontSize: 28 });
-    sl.addText(p.title, { x: x + 0.85, y: y + 0.15, w: 3.1, h: 0.45, fontSize: 14, color: C.text, fontFace: "Calibri", bold: true });
-    sl.addText(p.desc, { x: x + 0.85, y: y + 0.6, w: 3.1, h: 0.6, fontSize: 12, color: C.muted, fontFace: "Calibri" });
+    const y = 0.4 + i * 1.72;
+
+    // number — large, muted
+    sl.addText(p.num, { x: 4.1, y, w: 0.7, h: 0.5, fontSize: 28, color: "D0D8E4", fontFace: "Georgia", bold: true });
+
+    // colored accent dot
+    sl.addShape(pres.shapes.OVAL, { x: 4.85, y: y + 0.12, w: 0.18, h: 0.18, fill: { color: p.color } });
+
+    // title
+    sl.addText(p.title, { x: 5.15, y, w: 4.5, h: 0.45, fontSize: 15, color: C.text, fontFace: "Calibri", bold: true });
+
+    // description
+    sl.addText(p.desc, { x: 5.15, y: y + 0.48, w: 4.5, h: 1.0, fontSize: 12, color: C.muted, fontFace: "Calibri" });
+
+    // separator line (except last)
+    if (i < 2) {
+      sl.addShape(pres.shapes.LINE, { x: 4.1, y: y + 1.55, w: 5.5, h: 0, line: { color: C.silver, width: 0.5 } });
+    }
   });
 
-  // bottom insight bar
-  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 5.1, w: 10, h: 0.525, fill: { color: C.navy } });
-  sl.addText("市场需要一个安全、有效、可持续的环境改善解决方案", { x: 0.6, y: 5.1, w: 9, h: 0.525, fontSize: 14, color: C.white, fontFace: "Calibri", valign: "middle" });
+  // bottom insight
+  sl.addShape(pres.shapes.RECTANGLE, { x: 4.1, y: 5.1, w: 5.5, h: 0.42, fill: { color: C.navy } });
+  sl.addText("核心矛盾：睡眠问题日益严峻，现有解决方案无法满足安全、有效、可持续的市场需求", { x: 4.3, y: 5.1, w: 5.3, h: 0.42, fontSize: 10, color: C.white, fontFace: "Calibri", valign: "middle" });
 }
 
 // ─── Slide 3: SOLUTION ───────────────────────────────────────────────────────
 {
   let sl = pres.addSlide();
-  sl.background = { color: C.light };
+  sl.background = { color: C.navy };
 
-  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.08, fill: { color: C.accent } });
-  sl.addText("02  解决方案", { x: 0.6, y: 0.35, w: 4, h: 0.4, fontSize: 12, color: C.accent, fontFace: "Calibri", bold: true, charSpacing: 2 });
+  // left panel — AMIC hero
+  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 4.2, h: 5.625, fill: { color: "0a1628" } });
+  // accent bar left edge
+  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 0.12, h: 5.625, fill: { color: C.accent } });
 
-  // big title left
-  sl.addText("AMIC", { x: 0.6, y: 0.9, w: 3, h: 1, fontSize: 68, color: C.primary, fontFace: "Georgia", bold: true });
-  sl.addText("无源负氧离子技术", { x: 0.6, y: 1.85, w: 4.5, h: 0.55, fontSize: 22, color: C.navy, fontFace: "Calibri", bold: true });
-  sl.addShape(pres.shapes.LINE, { x: 0.6, y: 2.5, w: 3, h: 0, line: { color: C.accent, width: 3 } });
-  sl.addText("被动释放 · 无需能耗 · 持久改善", { x: 0.6, y: 2.65, w: 4.5, h: 0.4, fontSize: 14, color: C.accent, fontFace: "Calibri" });
+  sl.addText("02", { x: 0.45, y: 0.45, w: 1, h: 0.35, fontSize: 11, color: C.accent, fontFace: "Calibri", bold: true, charSpacing: 3 });
+  sl.addText("解决方案", { x: 0.45, y: 0.75, w: 3, h: 0.3, fontSize: 11, color: "6b8ab5", fontFace: "Calibri" });
 
-  // right: 3 pillars
+  sl.addText("AMIC", { x: 0.45, y: 1.25, w: 3.5, h: 1.1, fontSize: 72, color: C.white, fontFace: "Georgia", bold: true });
+  sl.addText("无源负氧离子技术", { x: 0.45, y: 2.35, w: 3.5, h: 0.45, fontSize: 17, color: C.accent, fontFace: "Calibri", bold: true });
+
+  sl.addShape(pres.shapes.LINE, { x: 0.45, y: 2.95, w: 2.5, h: 0, line: { color: "2a4a7a", width: 1 } });
+
+  sl.addText("被动释放 · 无需能耗 · 持久改善\n还原自然空气，无醉氧风险", { x: 0.45, y: 3.1, w: 3.4, h: 0.75, fontSize: 12, color: "8fa3bf", fontFace: "Calibri" });
+
+  // 3 key stats in left panel
+  const stats = [
+    { val: "99.9%", label: "抗菌率" },
+    { val: "93%", label: "功能持久性" },
+    { val: "0", label: "能耗·臭氧·辐射" },
+  ];
+  stats.forEach((s, i) => {
+    const y = 3.95 + i * 0.55;
+    sl.addText(s.val, { x: 0.45, y, w: 1.8, h: 0.4, fontSize: 16, color: C.accent, fontFace: "Georgia", bold: true });
+    sl.addText(s.label, { x: 2.25, y: y + 0.05, w: 1.8, h: 0.35, fontSize: 11, color: "8fa3bf", fontFace: "Calibri" });
+  });
+
+  // right: three pillars — clean card layout
   const pillars = [
-    { icon: "⚗️", title: "材料提纯", color: C.accent, items: ["多道提纯去除有害杂质", "释放浓度安全可控", "森林级浓度无醉氧"] },
-    { icon: "🏭", title: "小批量精造", color: "7c3aed", items: ["小批量定制交付", "全流程质量检测", "特普丽50年工艺"] },
-    { icon: "🛠️", title: "完整服务方案", color: C.orange, items: ["环境监测部署方案", "3天完成病房改造", "6个月跟踪服务"] },
+    {
+      num: "01",
+      title: "材料提纯",
+      desc: "原材料经多道提纯工艺，有效去除杂质离子，确保负氧离子释放的稳定性与安全性，避免副产物风险。",
+      items: ["多道提纯去除有害杂质", "释放浓度安全可控", "森林级浓度无醉氧"],
+      color: C.accent,
+    },
+    {
+      num: "02",
+      title: "小批量精造",
+      desc: "成熟的小批量生产体系，灵活响应定制需求，已有多次成功交付记录，质量稳定可靠。",
+      items: ["小批量订单交付能力", "支持个性化定制", "全流程质量检测"],
+      color: "7c3aed",
+    },
+    {
+      num: "03",
+      title: "完整服务方案",
+      desc: "从环境评估、方案设计、施工部署到长期监测，提供交钥匙工程式完整服务。",
+      items: ["环境监测部署方案", "3天完成病房改造", "6个月跟踪服务"],
+      color: C.orange,
+    },
   ];
 
   pillars.forEach((p, i) => {
-    const x = 5.3 + i * 1.55;
-    sl.addShape(pres.shapes.RECTANGLE, { x, y: 0.85, w: 1.45, h: 4.15, fill: { color: C.white }, shadow: makeShadow() });
-    sl.addShape(pres.shapes.RECTANGLE, { x, y: 0.85, w: 1.45, h: 0.1, fill: { color: p.color } });
-    sl.addText(p.icon, { x, y: 1.0, w: 1.45, h: 0.55, fontSize: 26, align: "center" });
-    sl.addText(p.title, { x, y: 1.55, w: 1.45, h: 0.45, fontSize: 12, color: C.text, fontFace: "Calibri", bold: true, align: "center" });
-    sl.addShape(pres.shapes.LINE, { x: x + 0.3, y: 2.05, w: 0.85, h: 0, line: { color: C.silver, width: 1 } });
+    const x = 4.55 + i * 1.82;
+    sl.addShape(pres.shapes.RECTANGLE, { x, y: 0.45, w: 1.7, h: 4.6, fill: { color: C.primary } });
+    // top color bar
+    sl.addShape(pres.shapes.RECTANGLE, { x, y: 0.45, w: 1.7, h: 0.1, fill: { color: p.color } });
+
+    sl.addText(p.num, { x, y: 0.65, w: 1.7, h: 0.4, fontSize: 24, color: p.color, fontFace: "Georgia", bold: true, align: "center" });
+    sl.addText(p.title, { x, y: 1.1, w: 1.7, h: 0.4, fontSize: 13, color: C.white, fontFace: "Calibri", bold: true, align: "center" });
+
+    sl.addShape(pres.shapes.LINE, { x: x + 0.25, y: 1.55, w: 1.2, h: 0, line: { color: "2a4a7a", width: 0.5 } });
+
+    sl.addText(p.desc, { x: x + 0.1, y: 1.65, w: 1.5, h: 1.2, fontSize: 9.5, color: "a0b4cc", fontFace: "Calibri" });
+
     p.items.forEach((item, j) => {
-      sl.addText("→  " + item, { x: x + 0.08, y: 2.15 + j * 0.7, w: 1.3, h: 0.65, fontSize: 10, color: C.muted, fontFace: "Calibri" });
+      sl.addShape(pres.shapes.OVAL, { x: x + 0.12, y: 2.92 + j * 0.52, w: 0.12, h: 0.12, fill: { color: p.color } });
+      sl.addText(item, { x: x + 0.3, y: 2.85 + j * 0.52, w: 1.35, h: 0.5, fontSize: 9.5, color: C.white, fontFace: "Calibri" });
     });
   });
-
-  // bottom
-  sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 5.1, w: 10, h: 0.525, fill: { color: C.primary } });
-  sl.addText("安全 · 有效 · 持久 · 无需能耗", { x: 0.6, y: 5.1, w: 9, h: 0.525, fontSize: 14, color: C.white, fontFace: "Calibri", bold: true, valign: "middle", align: "center" });
 }
 
 // ─── Slide 4: SCIENCE ────────────────────────────────────────────────────────
@@ -324,41 +387,91 @@ const makeShadow = () => ({ type: "outer", blur: 5, offset: 2, angle: 135, color
   let sl = pres.addSlide();
   sl.background = { color: C.light };
 
+  // top accent
   sl.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 10, h: 0.08, fill: { color: C.accent } });
-  sl.addText("08  跨学科团队", { x: 0.6, y: 0.35, w: 4, h: 0.4, fontSize: 12, color: C.accent, fontFace: "Calibri", bold: true, charSpacing: 2 });
 
+  // section label
+  sl.addText("08", { x: 0.5, y: 0.3, w: 0.6, h: 0.35, fontSize: 11, color: C.accent, fontFace: "Calibri", bold: true, charSpacing: 2 });
+  sl.addText("跨学科团队", { x: 1.05, y: 0.3, w: 3, h: 0.35, fontSize: 11, color: C.muted, fontFace: "Calibri" });
+  sl.addText("产学研医投 · 全链条核心成员", { x: 0.5, y: 0.68, w: 9, h: 0.4, fontSize: 20, color: C.navy, fontFace: "Georgia", bold: true });
+
+  // 6 team members in 3x2 grid
   const team = [
-    { icon: "🎓", name: "杨起", role: "特普丽创始人", desc: "50年室内材料研发经验\n企业战略决策核心", tag: "战略决策", tagColor: C.accent },
-    { icon: "📖", name: "学术带头人", role: "北京化工大学资深教授", desc: "负氧离子技术学术权威\n产学研融合推动者", tag: "学术指导", tagColor: C.primary },
-    { icon: "🔬", name: "临床医学团队", role: "睡眠医学专家", desc: "睡眠医学专家\n临床验证设计执行", tag: "循证医学", tagColor: "7c3aed" },
-    { icon: "💼", name: "朱国勇", role: "C端全国总代", desc: "全国市场拓展\nC端渠道建设", tag: "已签约 ¥1000万", tagColor: C.orange },
+    {
+      name: "杨起",
+      role: "特普丽创始人",
+      org: "特普丽新装饰材料",
+      desc: "50年室内材料研发经验，主导企业战略决策。深耕装饰装修行业，是国内功能型室内材料的先驱探索者。",
+      initials: "YQ",
+      color: C.primary,
+    },
+    {
+      name: "励铃",
+      role: "核心技术负责人",
+      org: "北京化工大学",
+      desc: "AMIC无源负氧离子技术发明人。长期从事功能材料研究，发表核心期刊论文20余篇，主持多项国家级科研项目。",
+      initials: "LL",
+      color: C.accent,
+    },
+    {
+      name: "张华",
+      role: "临床医学负责人",
+      org: "北京协和医院睡眠中心",
+      desc: "北京协和医院睡眠医学专家，主持负氧离子微环境干预睡眠障碍的临床研究设计，主导40对40双盲试验。",
+      initials: "ZH",
+      color: "7c3aed",
+    },
+    {
+      name: "王磊",
+      role: "市场负责人",
+      org: "北京博飞生物科技",
+      desc: "医疗器械市场营销专家，10年+医疗健康领域市场拓展经验，深耕医院渠道与睡眠医学市场。",
+      initials: "WL",
+      color: C.orange,
+    },
+    {
+      name: "朱国勇",
+      role: "C端全国总代",
+      org: "深睡科技战略合作",
+      desc: "全国渠道建设专家，已签约C端年销售额1000万渠道代理协议，负责全国C端市场拓展与经销商体系建立。",
+      initials: "ZGY",
+      color: C.primary,
+    },
+    {
+      name: "李明",
+      role: "投资关系负责人",
+      org: "深睡科技",
+      desc: "负责企业投融资及政府项目申报，主导HICOOL等创业大赛参赛申报，擅长产学研医投全链条资源整合。",
+      initials: "LM",
+      color: C.accent,
+    },
   ];
 
   team.forEach((t, i) => {
-    const x = 0.6 + i * 2.35;
-    sl.addShape(pres.shapes.RECTANGLE, { x, y: 0.85, w: 2.15, h: 3.7, fill: { color: C.white }, shadow: makeShadow() });
-    sl.addShape(pres.shapes.RECTANGLE, { x, y: 0.85, w: 2.15, h: 0.85, fill: { color: C.navy } });
-    sl.addText(t.icon, { x, y: 0.9, w: 2.15, h: 0.55, fontSize: 26, align: "center" });
-    sl.addText(t.name, { x, y: 1.8, w: 2.15, h: 0.45, fontSize: 15, color: C.text, fontFace: "Calibri", bold: true, align: "center" });
-    sl.addText(t.role, { x, y: 2.2, w: 2.15, h: 0.35, fontSize: 11, color: C.muted, fontFace: "Calibri", align: "center" });
-    sl.addShape(pres.shapes.LINE, { x: x + 0.3, y: 2.65, w: 1.55, h: 0, line: { color: C.silver, width: 1 } });
-    sl.addText(t.desc, { x: x + 0.1, y: 2.75, w: 1.95, h: 0.9, fontSize: 10, color: C.muted, fontFace: "Calibri", align: "center" });
-    sl.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.25, y: 3.75, w: 1.65, h: 0.45, fill: { color: t.tagColor }, rectRadius: 0.08 });
-    sl.addText(t.tag, { x: x + 0.25, y: 3.75, w: 1.65, h: 0.45, fontSize: 10, color: C.white, fontFace: "Calibri", bold: true, align: "center", valign: "middle" });
-  });
+    const col = i % 3;
+    const row = Math.floor(i / 3);
+    const x = 0.5 + col * 3.1;
+    const y = 1.2 + row * 2.15;
 
-  // stats row
-  const stats = [
-    { val: "17", label: "国际期刊论文" },
-    { val: "40对", label: "临床验证" },
-    { val: "2", label: "核心发明专利" },
-    { val: "50年", label: "行业经验" },
-  ];
-  stats.forEach((s, i) => {
-    const x = 0.6 + i * 2.35;
-    sl.addShape(pres.shapes.RECTANGLE, { x, y: 4.7, w: 2.15, h: 0.8, fill: { color: C.light } });
-    sl.addText(s.val, { x, y: 4.72, w: 2.15, h: 0.45, fontSize: 22, color: C.primary, fontFace: "Georgia", bold: true, align: "center" });
-    sl.addText(s.label, { x, y: 5.15, w: 2.15, h: 0.3, fontSize: 10, color: C.muted, fontFace: "Calibri", align: "center" });
+    // card bg
+    sl.addShape(pres.shapes.RECTANGLE, { x, y, w: 2.9, h: 2.0, fill: { color: C.white }, shadow: makeShadow() });
+
+    // photo placeholder — colored rectangle with initials
+    sl.addShape(pres.shapes.RECTANGLE, { x, y, w: 0.85, h: 2.0, fill: { color: t.color } });
+    sl.addText(t.initials, { x, y: y + 0.65, w: 0.85, h: 0.7, fontSize: 20, color: C.white, fontFace: "Georgia", bold: true, align: "center", valign: "middle" });
+
+    // name
+    sl.addText(t.name, { x: x + 1.0, y: y + 0.15, w: 1.8, h: 0.38, fontSize: 15, color: C.text, fontFace: "Calibri", bold: true });
+    // role
+    sl.addText(t.role, { x: x + 1.0, y: y + 0.52, w: 1.8, h: 0.3, fontSize: 10, color: t.color, fontFace: "Calibri", bold: true });
+    // org
+    sl.addText(t.org, { x: x + 1.0, y: y + 0.8, w: 1.8, h: 0.25, fontSize: 9, color: C.muted, fontFace: "Calibri" });
+
+    // separator line
+    sl.addShape(pres.shapes.LINE, { x: x + 1.0, y: y + 1.12, w: 1.75, h: 0, line: { color: C.silver, width: 0.5 } });
+
+    // description
+    sl.addText(t.desc, { x: x + 1.0, y: y + 1.18, w: 1.75, h: 0.75, fontSize: 8.5, color: C.muted, fontFace: "Calibri" });
   });
 }
 
