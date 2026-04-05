@@ -150,8 +150,8 @@ const makeShadow = () => ({ type: "outer", blur: 5, offset: 2, angle: 135, color
     {
       num: "01",
       title: "材料提纯",
-      desc: "原材料经多道提纯工艺，有效去除杂质离子，确保负氧离子释放的稳定性与安全性，避免副产物风险。",
-      items: ["多道提纯去除有害杂质", "释放浓度安全可控", "森林级浓度无醉氧"],
+      desc: "独创四步法核心提纯工艺：酸溶→ Ra分离→ 矿物纯化→ 重新合成，彻底去除放射性镭（Ra），保留并激活负氧离子释放活性。",
+      items: ["酸溶将镭转入溶液体系", "载体共沉/选择性吸附/离子交换分离Ra", "纯化主体矿物组分", "重新合成高活性负氧离子粉"],
       color: C.accent,
     },
     {
@@ -359,7 +359,7 @@ const makeShadow = () => ({ type: "outer", blur: 5, offset: 2, angle: 135, color
 
   // 3 pillars full width
   const moats = [
-    { icon: "⚗️", title: "材料提纯", color: C.accent, desc: "原材料经多道提纯工艺，有效去除杂质离子，确保负氧离子释放的稳定性与安全性，避免副产物风险。", items: ["多道提纯去除有害杂质", "释放浓度安全可控", "零臭氧、零辐射", "森林级浓度无醉氧"] },
+    { icon: "⚗️", title: "材料提纯", color: C.accent, desc: "独创四步法核心提纯工艺：酸溶→ Ra分离→ 矿物纯化→ 重新合成，彻底去除放射性镭（Ra），保留并激活负氧离子释放活性。", items: ["酸溶将镭转入溶液体系", "载体共沉/选择性吸附/离子交换分离Ra", "纯化主体矿物组分", "重新合成高活性负氧离子粉", "零臭氧、零辐射", "森林级浓度无醉氧"] },
     { icon: "🏭", title: "小批量精造", color: "7c3aed", desc: "成熟的小批量生产体系，灵活响应客户定制需求，已有多次成功交付记录，质量稳定可靠。", items: ["小批量订单交付能力", "支持个性化定制", "全流程质量检测", "特普丽50年工艺保障"] },
     { icon: "🛠️", title: "完整服务方案", color: C.orange, desc: "从环境评估、方案设计、施工部署到长期监测，提供交钥匙工程式完整服务。", items: ["负氧离子微环境监测部署", "整体施工改造（3天/间）", "睡眠监测系统配套", "6个月跟踪监测服务"] },
   ];
@@ -373,7 +373,7 @@ const makeShadow = () => ({ type: "outer", blur: 5, offset: 2, angle: 135, color
     sl.addShape(pres.shapes.LINE, { x: x + 0.25, y: 2.05, w: 2.4, h: 0, line: { color: C.silver, width: 1 } });
     sl.addText(m.desc, { x: x + 0.15, y: 2.15, w: 2.6, h: 1.0, fontSize: 10, color: C.muted, fontFace: "Calibri" });
     m.items.forEach((item, j) => {
-      sl.addText("→  " + item, { x: x + 0.15, y: 3.2 + j * 0.42, w: 2.6, h: 0.4, fontSize: 10, color: C.text, fontFace: "Calibri" });
+      sl.addText("→  " + item, { x: x + 0.15, y: 3.2 + j * 0.33, w: 2.6, h: 0.33, fontSize: 10, color: C.text, fontFace: "Calibri" });
     });
   });
 
